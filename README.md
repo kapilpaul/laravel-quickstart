@@ -16,6 +16,15 @@ Laravel is accessible, yet powerful, providing tools needed for large, robust ap
 
 Here add a helper files to add active class on current url. Located in app/helpers.php
 
+## Usage
+
+``` bash
+# clone this repo by
+git clone https://github.com/kapilpaul/laravel-quickstart.git
+
+# install dependencies
+composer update
+```
 
 ## License
 
