@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\registerUserRequest;
+use App\Models\User\User;
 use App\Photo;
-use App\User;
-use Cartalyst\Sentinel\Laravel\Facades\Activation;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Activation;
+use Sentinel;
 use Illuminate\Http\Request;
 
 class AdminUserController extends Controller
@@ -26,7 +26,6 @@ class AdminUserController extends Controller
             $page_count = $users->count();
         }
 
-//        return $users;
         return view('users.index', compact('users', 'page_count'));
     }
 

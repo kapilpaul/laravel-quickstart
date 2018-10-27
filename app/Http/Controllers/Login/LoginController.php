@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers\Login;
 
-use App\User;
+use App\Models\User\User;
 use Cartalyst\Sentinel\Checkpoints\NotActivatedException;
 use Cartalyst\Sentinel\Checkpoints\ThrottlingException;
-use Facebook\Exceptions\FacebookResponseException;
-use Facebook\Exceptions\FacebookSDKException;
-use Facebook\Facebook;
 use GuzzleHttp\Client;
-use League\Flysystem\Config;
-use League\Flysystem\Exception;
 use Sentinel;
 use App\Http\Requests\loginUserRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LoginController extends Controller
 {
-    public function login(){
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function login()
+    {
         $roles = Sentinel::getRoleRepository()->get();
 
-        if(count($roles) == 0){
+        if (count($roles) == 0) {
             $input['slug'] = 'admin';
             $input['name'] = 'Admin';
 
@@ -36,37 +34,36 @@ class LoginController extends Controller
             Sentinel::getRoleRepository()->createModel()->create($input);
         }
 
-        $kapil = User::whereEmail("admin@admin.com")->first();
-
-        if(!$kapil){
+        if (! $kapil = User::whereEmail("admin@admin.com")->first()) {
             $kapilData['first_name'] = 'Kapil';
-            $kapilData['last_name'] = 'Paul';
-            $kapilData['email'] = 'admin@admin.com';
-            $kapilData['password'] = 'nothing1234';
+            $kapilData['last_name']  = 'Paul';
+            $kapilData['email']      = 'admin@admin.com';
+            $kapilData['password']   = 'nothing1234';
 
             $role = Sentinel::findRoleBySlug('admin');
-
             $user = Sentinel::registerAndActivate($kapilData);
-
             $role->users()->attach($user);
         }
-
-//        $loginUrl = $this->fbLogin();
 
         return view('auth.login');
     }
 
-    public function postLogin(loginUserRequest $request){
-        try{
+    /**
+     * @param loginUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function postLogin(loginUserRequest $request)
+    {
+        try {
             $remember_me = false;
-            if(isset($request->remember_me))
+            if (isset($request->remember_me))
                 $remember_me = true;
 
-            if(Sentinel::authenticate($request->all(), $remember_me)){
+            if (Sentinel::authenticate($request->all(), $remember_me)) {
 
-                if(Sentinel::inRole('admin') || Sentinel::inRole('user') || Sentinel::inRole('premium-user')){
+                if (Sentinel::inRole('admin') || Sentinel::inRole('user') || Sentinel::inRole('premium-user')) {
                     $http = new Client;
-                    $response = $http->post(env('APP_URL').'/oauth/token', [
+                    $response = $http->post(url('oauth/token'), [
                         'form_params' => [
                             'grant_type' => 'password',
                             'client_id' => '2',
@@ -76,27 +73,35 @@ class LoginController extends Controller
                             'scope' => '',
                         ],
                     ]);
-                    $token = json_decode((string) $response->getBody());
-                    return redirect('/bots')->with(['access_token' => $token->access_token, 'expiration' => $token->expires_in]);
+
+                    $token = json_decode((string)$response->getBody());
+                    return redirect()->route('home')->with(
+                        [
+                            'access_token' => $token->access_token,
+                            'expiration' => $token->expires_in
+                        ]
+                    );
                 } else {
-                    return redirect('/login');
+                    return redirect()->route('login');
                 }
-            }else{
+            } else {
                 return redirect()->back()->with(['error' => 'Wrong Credentials']);
             }
-        }catch(ThrottlingException $e){
+        } catch (ThrottlingException $e) {
             $delay = $e->getDelay();
-
             return redirect()->back()->with(['error' => "You are banned for $delay seconds"]);
-        }catch(NotActivatedException $e){
+        } catch (NotActivatedException $e) {
             return redirect()->back()->with(['error' => "Your account is not activated yet."]);
         }
     }
 
-    public function logout(){
+    /**
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function logout()
+    {
         Sentinel::logout();
-
-        return redirect('/');
+        return redirect()->route('login');
     }
 
 }
