@@ -61,5 +61,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'visitors'    => \App\Http\Middleware\visitorsMiddleware::class,
         'authcheck'    => \App\Http\Middleware\authCheck::class,
+        'installer' => \App\Http\Middleware\CheckInstall::class,
     ];
 }

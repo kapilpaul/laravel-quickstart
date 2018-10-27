@@ -16,9 +16,9 @@ class visitorsMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(!Sentinel::check())
+        if(! Sentinel::check())
             return $next($request);
         else
-            return redirect('/dashboard');
+            return redirect()->route('home');
     }
 }

@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Sentinel;
 
-class authCheck
+class CheckInstall
 {
     /**
      * Handle an incoming request.
@@ -16,9 +15,11 @@ class authCheck
      */
     public function handle($request, Closure $next)
     {
-        if(Sentinel::check())
+        if (env('APP_INSTALLED', false) == true) {
             return $next($request);
-        else
-            return redirect()->route('home');
+        }
+
+        // Already installed, redirect to login
+        redirect('/install')->send();
     }
 }

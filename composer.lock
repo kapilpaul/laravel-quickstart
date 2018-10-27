@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0085114179acb0c0037260d0809bf16a",
+    "content-hash": "58d7b4b56eca44856b0dd980258f4cf4",
     "packages": [
         {
             "name": "cartalyst/sentinel",
@@ -879,6 +879,57 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "kapilpaul/laravelmount",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kapilpaul/laravelmount.git",
+                "reference": "3c3f48f396013bb07ac6ab494fb1ee88949488ff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kapilpaul/laravelmount/zipball/3c3f48f396013bb07ac6ab494fb1ee88949488ff",
+                "reference": "3c3f48f396013bb07ac6ab494fb1ee88949488ff",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.6.*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "KapilPaul\\LaravelMount\\LaravelMountServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "KapilPaul\\LaravelMount\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kapil Paul",
+                    "email": "kapilpaul007@gmail.com"
+                }
+            ],
+            "description": "Installer file for your laravel app. You can just install like any cms.",
+            "keywords": [
+                "laravel",
+                "laravelappinstaller",
+                "laravelinstaller",
+                "laravelmount",
+                "mount"
+            ],
+            "time": "2018-07-31T17:22:32+00:00"
         },
         {
             "name": "laravel/framework",
