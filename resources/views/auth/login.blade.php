@@ -1,80 +1,54 @@
-@extends('layouts.app')
+@extends('layouts.blank')
 
-@section('title')
-    Login
-@stop
-
-
-
-@section('content')
-    <div class="login-box">
-        <div class="login-logo">
-            <a href=""><b>Dummy</b> Text</a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-
-            {!! Form::open(['method' => 'POST', 'url' => route('postLogin')]) !!}
-
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    <p>{{session('error')}}</p>
-                </div>
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <p>{{session('success')}}</p>
-                </div>
-            @endif
-
-            <div class="form-group has-feedback">
-                {!! Form::email('email', null, ['class'=>'form-control', 'placeholder' => 'example@example.com'])
-                 !!}
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                        <p class="text-red">{{ $errors->first('email') }}</p>
-                    </span>
-                @endif
-            </div>
-
-            <div class="form-group has-feedback">
-                {!! Form::password('password', ['class'=>'form-control', 'placeholder' => 'Password'])
-                 !!}
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                        <p class="text-red">{{ $errors->first('password') }}</p>
-                    </span>
-                @endif
-            </div>
-
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            {!! Form::checkbox('remember_me', 'on', false); !!} Remember Me
-                        </label>
+@section('main_content')
+    <div class="app signin v2 usersession">
+        <div class="session-wrapper">
+            <div class="session-carousel slide" data-ride="carousel" data-interval="3000">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active"
+                         style="background-image:url({{ asset('assets/images/webable.jpg') }});background-size:cover;background-repeat: no-repeat;background-position: 50% 50%;">
                     </div>
-                </div>
-
-                <div class="col-xs-4">
-                    {!! Form::submit('Sign In', ['class'=>'btn btn-primary btn-block btn-flat']) !!}
+                    {{--<div class="item"--}}
+                         {{--style="background-image:url({{ asset('assets/images/webable.jpg') }});background-size:cover;background-repeat: no-repeat;background-position: 50% 50%;">--}}
+                    {{--</div>--}}
                 </div>
             </div>
 
-            {!! Form::close() !!}
+            <div class="card bg-white no-border">
+                <div class="card-block">
+                    <!-- Login Form -->
+                    {!! Form::open([
+                        'method' => 'POST',
+                        'url' => route('postLogin'),
+                        'id' => 'form-login', 'class' => "form-layout"
+                    ]) !!}
 
-            <a href="{{ route('forgotpassword') }}">I forgot my password</a>
+                    <div class="text-center m-b">
+                        <h4 class="text-uppercase">WebAble</h4>
+                        <p>Please sign in to your account</p>
+                    </div>
+
+                    <div class="form-inputs p-b">
+                        {!! Form::label('login-email', 'Your email address', ['class' => 'text-uppercase']) !!}
+                        {!! Form::email('email', null, ['id' => 'login-email', 'class'=>'form-control input-lg', 'placeholder' =>
+                                'example@example.com']) !!}
+
+                        @include('common.form.validation', ['key' => 'email'])
+
+                        {!! Form::label('login-password', 'Password', ['class' => 'text-uppercase']) !!}
+                        {!! Form::password('password', ['id' => 'login-password', 'class'=>'form-control input-lg', 'placeholder' => 'Password']) !!}
+
+                        @include('common.form.validation', ['key' => 'password'])
+
+                        <button type="submit" class="btn btn-primary btn-block btn-lg m-b">Login</button>
+                    </div>
+                {!! Form::close() !!}
+                <!-- END Login Form -->
+                </div>
+            </div>
+            <div class="push"></div>
         </div>
-        <!-- /.form-box -->
     </div>
-    <!-- /.register-box -->
-    @stop
-
-
-    @section('javascripts')
-        <!-- iCheck -->
-        <script src="{{asset('libs/plugins/iCheck/icheck.min.js')}}"></script>
 @stop
+
