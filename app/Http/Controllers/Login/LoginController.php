@@ -24,21 +24,13 @@ class LoginController extends Controller
             $input['name'] = 'Admin';
 
             Sentinel::getRoleRepository()->createModel()->create($input);
-
-            $input['slug'] = 'user';
-            $input['name'] = 'User';
-            Sentinel::getRoleRepository()->createModel()->create($input);
-
-            $input['slug'] = 'premium-user';
-            $input['name'] = 'Premium User';
-            Sentinel::getRoleRepository()->createModel()->create($input);
         }
 
         if (! $kapil = User::whereEmail("admin@admin.com")->first()) {
             $kapilData['first_name'] = 'Kapil';
             $kapilData['last_name']  = 'Paul';
             $kapilData['email']      = 'admin@admin.com';
-            $kapilData['password']   = 'nothing1234';
+            $kapilData['password']   = '123456';
 
             $role = Sentinel::findRoleBySlug('admin');
             $user = Sentinel::registerAndActivate($kapilData);
@@ -67,7 +59,7 @@ class LoginController extends Controller
                         'form_params' => [
                             'grant_type' => 'password',
                             'client_id' => '2',
-                            'client_secret' => 'RqMghgLSXWZPbB6QODMq7bIotXWYKLXUTkGMHlzk',
+                            'client_secret' => 'VbWBeDANgZ2oz6CmtzIQl1IQPx0cC2Lh3bgBX4kE',
                             'username' => $request->email,
                             'password' => $request->password,
                             'scope' => '',

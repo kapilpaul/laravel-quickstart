@@ -12,7 +12,7 @@
 */
 
 
-Route::middleware(['installer', 'visitors'])->group(function () {
+Route::middleware(['visitors'])->group(function () {
     /*
      * Namespace : Login
      */
@@ -20,9 +20,9 @@ Route::middleware(['installer', 'visitors'])->group(function () {
         /*
          * Login Routes
          */
-        Route::group(['prefix' => 'login'], function () {
+        Route::group(['prefix' => ''], function () {
             Route::get('/', 'LoginController@login')->name('login');
-            Route::post('/', 'LoginController@postLogin')->name('postLogin');
+            Route::post('/login', 'LoginController@postLogin')->name('postLogin');
         });
 
         /*
@@ -52,6 +52,6 @@ Route::middleware(['installer', 'visitors'])->group(function () {
 });
 
 
-Route::middleware(['installer', 'authcheck'])->group(function () {
+Route::middleware(['authcheck'])->group(function () {
     Route::get('/', function() {})->name('home');
 });
