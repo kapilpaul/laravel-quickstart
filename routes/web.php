@@ -53,5 +53,20 @@ Route::middleware(['visitors'])->group(function () {
 
 
 Route::middleware(['authcheck'])->group(function () {
-    Route::get('/', function() {})->name('home');
+    Route::get('/ss', function() {})->name('home');
+    //change password routes
+    Route::get('user/change-password', 'UserController@changePasswordForm')->name('user.changePassword.form');
+    Route::post('user/change-password', 'UserController@changePassword')->name('user.changePassword');
+
+    Route::get('/logout', 'Login\\LoginController@logout')->name('logout');
+});
+
+Route::middleware(['adminCheck'])->group(function () {
+
+});
+
+Route::middleware(['HRCheck'])->group(function () {
+    Route::resource('users', 'UserController');
+    Route::get('users/inactive/{id}', 'UserController@inactive')->name('users.inactive');
+    Route::get('users/active/{id}', 'UserController@active')->name('users.active');
 });

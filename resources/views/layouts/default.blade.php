@@ -1,6 +1,6 @@
 @include('layouts.parts.header')
 
-<div class="app layout-fixed-header">
+<div id="app" class="app layout-fixed-header">
 
     @include('layouts.parts.sidebar')
 
@@ -15,6 +15,8 @@
                 <div class="title">@yield('page-title')</div>
                 <div class="sub-title">@yield('page-subtitle')</div>
             </div>
+
+            @include('common.session-msg')
 
             @yield('main_content')
 

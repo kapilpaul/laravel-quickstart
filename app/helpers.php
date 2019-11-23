@@ -1,5 +1,5 @@
 <?php
-
+use Sentinel;
 /*
 |--------------------------------------------------------------------------
 | Detect Active Route
@@ -30,6 +30,11 @@ function areActiveRoutes(Array $routes, $output = "active menu-open")
         if (Route::currentRouteName() == $route)
             return $output;
     }
-
 }
 
+function getUserName() {
+    if(Sentinel::check()) {
+        $user = Sentinel::getUser();
+        return $user->first_name;
+    }
+}

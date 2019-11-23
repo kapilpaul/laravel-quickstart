@@ -30,55 +30,6 @@
         </li>
         <li class="navbar-form search-form hide">
             <input type="search" class="form-control search-input" placeholder="Start typing...">
-            <div class="search-predict hide">
-                <a href="#">Searching for 'purple rain'</a>
-                <div class="heading">
-                    <span class="title">People</span>
-                </div>
-                <ul class="predictive-list">
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/face1.jpg') }}" class="img-circle" alt="">
-                            <span>Tammy Carpenter</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/face2.jpg') }}" class="img-circle" alt="">
-                            <span>Catherine Moreno</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/face3.jpg') }}" class="img-circle" alt="">
-                            <span>Diana Robertson</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/face4.jpg') }}" class="img-circle" alt="">
-                            <span>Emma Sullivan</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="heading">
-                    <span class="title">Page posts</span>
-                </div>
-                <ul class="predictive-list">
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/unsplash/img2.jpeg') }}" class="img-rounded" alt="">
-                            <span>The latest news for cloud-based developers </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="avatar" href="#">
-                            <img src="{{ asset('assets/images/unsplash/img2.jpeg') }}" class="img-rounded" alt="">
-                            <span>Trending Goods of the Week</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-right hidden-xs">
@@ -172,12 +123,12 @@
         <li>
             <a href="javascript:;" class="ripple" data-toggle="dropdown">
                 <img src="{{ asset('assets/images/avatar.jpg') }}" class="header-avatar img-circle" alt="user" title="user">
-                <span>Sean Carpenter</span>
+                <span>{{ getUserName() }}</span>
                 <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="javascript:;">Settings</a>
+                    <a href="{{ route('user.changePassword.form') }}">Settings</a>
                 </li>
                 <li>
                     <a href="javascript:;">Upgrade</a>
@@ -193,7 +144,7 @@
                     <a href="javascript:;">Help</a>
                 </li>
                 <li>
-                    <a href="extras-signin.html">Logout</a>
+                    <a href="{{ route('logout') }}">Logout</a>
                 </li>
             </ul>
         </li>
