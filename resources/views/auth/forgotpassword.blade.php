@@ -1,59 +1,39 @@
-@extends('layouts.loginRegister')
+@extends('layouts.blank')
 
-@section('title')
-    Forgot Password
-@stop
+@section('title', 'Forgot Password')
 
+@section('main_content')
+    <div class="app forgot-password usersession">
+        <div class="session-wrapper">
+            <div class="page-height row-equal align-middle">
+                <div class="column">
+                    <div class="card bg-white no-border">
+                        <div class="card-block">
+                                {!! Form::open([
+                                    'method' => 'POST',
+                                    'url' => route('postForgotpassword'),
+                                    'id' => 'form-reminder', 'class' => "form-layout"
+                                ]) !!}
 
+                                <div class="text-center m-b">
+                                    <h4 class="text-uppercase">Reset Password</h4>
+                                </div>
+                                <div class="form-inputs">
+                                    {!! Form::label('reminder-email', 'Your email address', ['class' => 'text-uppercase']) !!}
+                                    {!! Form::email('email', null, ['id' => "reminder-email", 'class'=>'form-control input-lg', 'placeholder' => 'example@example.com']) !!}
 
-@section('body_content')
-    <body class="hold-transition login-page">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href=""><b>Mobile</b> Garden</a>
+                                    @include('common.form.validation', ['key' => 'email'])
+
+                                </div>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Reset Password</button>
+                            {!! Form::close() !!}
+                        </div>
+
+                        <a href="{{ route('login') }}" class="bottom-link">Login instead.</a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.login-logo -->
-        <div class="login-box-body" style="overflow: hidden;">
-            <p class="login-box-msg">Forgot your password</p>
-
-            {!! Form::open(['method' => 'POST', 'action' => 'ForgetPasswordController@postForgotPassword']) !!}
-
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    <p>{{session('error')}}</p>
-                </div>
-            @endif
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <p>{{session('success')}}</p>
-                </div>
-            @endif
-
-                <div class="form-group has-feedback">
-                    {!! Form::email('email', null, ['class'=>'form-control', 'placeholder' => 'example@example.com'])
-                     !!}
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    @if ($errors->has('email'))
-                        <span class="help-block">
-                            <p class="text-red">{{ $errors->first('email') }}</p>
-                        </span>
-                    @endif
-                </div>
-
-
-                <div class="col-xs-4 pull-right">
-                    {!! Form::submit('Send', ['class'=>'btn btn-primary btn-block btn-flat']) !!}
-                </div>
-
-            {!! Form::close() !!}
-        </div>
-        <!-- /.form-box -->
     </div>
-    <!-- /.register-box -->
-    @stop
-
-
-    @section('javascripts')
-        <!-- iCheck -->
-        <script src="{{asset('libs/plugins/iCheck/icheck.min.js')}}"></script>
 @stop
+

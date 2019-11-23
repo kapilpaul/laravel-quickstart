@@ -1,3 +1,3 @@
 @if ($errors->has($key))
-    <div class="help-block animation-slideDown" style="color: #ff0000">{{ $errors->first($key) }}</div>
+    <p class="help-block text-danger">{{ $errors->first($key) }}</p>
 @endif

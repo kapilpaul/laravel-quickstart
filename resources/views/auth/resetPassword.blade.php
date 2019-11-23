@@ -1,8 +1,6 @@
 @extends('layouts.loginRegister')
 
-@section('title')
-    Reset Password
-@stop
+@section('title', 'Reset Password')
 
 
 

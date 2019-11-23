@@ -1,5 +1,7 @@
 @extends('layouts.blank')
 
+@section('title', 'Login')
+
 @section('main_content')
     <div class="app signin v2 usersession">
         <div class="session-wrapper">
@@ -41,8 +43,11 @@
 
                         @include('common.form.validation', ['key' => 'password'])
 
-                        <button type="submit" class="btn btn-primary btn-block btn-lg m-b">Login</button>
+                        <a href="{{ route('forgotpassword') }}">Forgotten password?</a>
                     </div>
+
+                    <button type="submit" class="btn btn-primary btn-block btn-lg m-b">Login</button>
+
                 {!! Form::close() !!}
                 <!-- END Login Form -->
                 </div>
